@@ -9,7 +9,6 @@ import FirebaseAuth
 import UIKit
 
 class ViewController: UIViewController {
-
     @IBOutlet weak var userNameInput: UITextField!
     @IBOutlet weak var passwordInput: UITextField!
     @IBOutlet weak var signUpButton: UIButton!
@@ -21,32 +20,36 @@ class ViewController: UIViewController {
     }
 
     @IBAction func singUp(_ sender: Any) {
-        Auth.auth().createUser(
-            withEmail: userNameInput.text ?? "",
-            password: passwordInput.text ?? ""
-        ) { [unowned self] authResult, error in
-            if let error = error {
-                print("Error creating account: \(error)")
-                return
-            }
+        AuthManager.singUp(
+            email: userNameInput.text,
+            password: passwordInput.text
+        ) { [unowned self] result in
 
-            print("Account created successfully!")
-            performSegue(withIdentifier: "navigateToHome", sender: nil)
+            switch result {
+            case .success(let user):
+                print("Account created successfully!")
+                performSegue(withIdentifier: "navigateToHome", sender: nil)
+
+            case .failure(let error):
+                print("Error creating account: \(error)")
+            }
         }
     }
 
     @IBAction func singIn(_ sender: Any) {
-        Auth.auth().signIn(
-            withEmail: userNameInput.text ?? "",
-            password: passwordInput.text ?? ""
-        ) { [unowned self] authResult, error in
-            if let error = error {
-                print("Error sing in: \(error)")
-                return
-            }
+        AuthManager.signIn(
+            email: userNameInput.text,
+            password: passwordInput.text
+        ) { [unowned self] result in
 
-            print("Signed in successfully!")
-            performSegue(withIdentifier: "navigateToHome", sender: nil)
+            switch result {
+            case .success:
+                print("Signed in successfully!")
+                performSegue(withIdentifier: "navigateToHome", sender: nil)
+
+            case .failure(let error):
+                print("Error sing in: \(error)")
+            }
         }
     }
 
