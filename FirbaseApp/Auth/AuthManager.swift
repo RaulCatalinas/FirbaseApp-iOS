@@ -24,6 +24,13 @@ private enum AuthError: LocalizedError {
     }
 }
 
+enum AuthProvider {
+    case google
+    case facebook
+    case twitter
+    case apple
+}
+
 class AuthManager {
     private static let firebaseAuth = Auth.auth()
 
@@ -92,6 +99,30 @@ class AuthManager {
             let error = error
             print("Error signing out: \(error)")
             completion(.failure(AuthError.signOutFailed(underlying: error)))
+        }
+    }
+
+    static func signIn(
+        with provider: AuthProvider,
+        completion: @escaping (Result<User, Error>) -> Void
+    ) {
+        switch provider {
+        case .google:
+            do {
+                print("Singing in with Google...")
+            }
+        case .twitter:
+            do {
+                print("Singing in with Twitter...")
+            }
+        case .apple:
+            do {
+                print("Singing in with Apple...")
+            }
+        case .facebook:
+            do {
+                print("Singing in with Facebook...")
+            }
         }
     }
 
