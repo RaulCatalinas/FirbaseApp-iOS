@@ -312,10 +312,10 @@
             </objects>
             <point key="canvasLocation" x="1065" y="2354"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--Main View Controller-->
         <scene sceneID="9TH-e8-ql6">
             <objects>
-                <tabBarController id="tMD-y3-f8e" sceneMemberID="viewController">
+                <tabBarController id="tMD-y3-f8e" customClass="MainViewController" customModule="FirbaseApp" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="He1-R6-LYe">
                         <nil key="title"/>
                     </navigationItem>
