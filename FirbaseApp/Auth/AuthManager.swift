@@ -6,6 +6,8 @@
 //
 
 import FirebaseAuth
+import FirebaseCore
+import GoogleSignIn
 
 private enum AuthError: LocalizedError {
     case unknown
@@ -114,22 +116,52 @@ final class AuthManager {
 
     static func signIn(
         with provider: AuthProvider,
+        viewController: UIViewController? = nil,
         completion: @escaping (Result<User, Error>) -> Void
     ) {
         switch provider {
         case .google:
-            do {
-                print("Singing in with Google...")
-            } catch let error as NSError {
-                print("Error signing in with Google: \(error)")
-                completion(.failure(error))
+            guard let viewController else { return }
+            guard let clientID = FirebaseApp.app()?.options.clientID else {
+                return
             }
-        case .twitter:
-            do {
-                print("Singing in with Twitter...")
-            } catch let error as NSError {
-                print("Error signing in with Twitter: \(error)")
-                completion(.failure(error))
+
+            // Create Google Sign In configuration object.
+            let config = GIDConfiguration(clientID: clientID)
+            GIDSignIn.sharedInstance.configuration = config
+
+            // Start the sign in flow!
+            GIDSignIn.sharedInstance.signIn(withPresenting: viewController) {
+                result,
+                error in
+                if let error = error {
+                    print("Error signing in with Google: \(error)")
+                    completion(.failure(error))
+                    return
+                }
+
+                guard let user = result?.user,
+                    let idToken = user.idToken?.tokenString
+                else { return }
+
+                let credential = GoogleAuthProvider.credential(
+                    withIDToken: idToken,
+                    accessToken: user.accessToken.tokenString
+                )
+
+                firebaseAuth.signIn(with: credential) { result, error in
+                    if let error {
+                        completion(.failure(error))
+                        return
+                    }
+
+                    guard let firebaseUser = result?.user else {
+                        completion(.failure(AuthError.unknown))
+                        return
+                    }
+
+                    completion(.success(firebaseUser))
+                }
             }
         case .apple:
             do {
@@ -146,6 +178,10 @@ final class AuthManager {
                 completion(.failure(error))
             }
         }
+    }
+
+    static func isUserLoggedIn() -> Bool {
+        return firebaseAuth.currentUser != nil
     }
 
     // MARK: Private helpers

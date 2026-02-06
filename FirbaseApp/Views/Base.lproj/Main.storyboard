@@ -101,17 +101,8 @@
                                             <action selector="singInWithFacebook:" destination="BYZ-38-t0r" eventType="touchUpInside" id="bD2-mE-JJf"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yfG-hr-rEj">
-                                        <rect key="frame" x="158" y="493" width="77" height="35"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="tinted" title="Twitter"/>
-                                        <connections>
-                                            <action selector="singInWithTwitter:" destination="BYZ-38-t0r" eventType="touchUpInside" id="G08-v6-7bB"/>
-                                        </connections>
-                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fgp-Gc-qf7">
-                                        <rect key="frame" x="162" y="536" width="69" height="35"/>
+                                        <rect key="frame" x="162" y="493" width="69" height="35"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="tinted" title="Apple"/>

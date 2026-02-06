@@ -8,6 +8,5 @@
 enum AuthProvider {
     case google
     case facebook
-    case twitter
     case apple
 }

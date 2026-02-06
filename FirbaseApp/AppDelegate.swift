@@ -5,8 +5,9 @@
 //  Created by Tardes on 5/2/26.
 //
 
-import UIKit
 import FirebaseCore
+import GoogleSignIn
+import UIKit
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -18,6 +19,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     ) -> Bool {
         FirebaseApp.configure()
         return true
+    }
+
+    func application(
+        _ app: UIApplication,
+        open url: URL,
+        options: [UIApplication.OpenURLOptionsKey: Any] = [:]
+    ) -> Bool {
+        return GIDSignIn.sharedInstance.handle(url)
+
     }
 
     // MARK: UISceneSession Lifecycle

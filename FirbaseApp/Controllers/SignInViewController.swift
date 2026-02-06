@@ -14,7 +14,10 @@ class SignInViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+
+        if AuthManager.isUserLoggedIn() {
+            performSegue(withIdentifier: "navigateToHome", sender: nil)
+        }
     }
 
     @IBAction func singIn(_ sender: Any) {
@@ -35,7 +38,8 @@ class SignInViewController: UIViewController {
     }
 
     @IBAction func singInWithGoogle(_ sender: Any) {
-        AuthManager.signIn(with: .google) { [unowned self] result in
+        AuthManager.signIn(with: .google, viewController: self) {
+            [unowned self] result in
 
             switch result {
             case .success:
@@ -50,20 +54,6 @@ class SignInViewController: UIViewController {
 
     @IBAction func singInWithFacebook(_ sender: Any) {
         AuthManager.signIn(with: .facebook) { [unowned self] result in
-
-            switch result {
-            case .success:
-                print("Signed in successfully!")
-                performSegue(withIdentifier: "navigateToHome", sender: nil)
-
-            case .failure(let error):
-                print("Error sing in: \(error.localizedDescription)")
-            }
-        }
-    }
-
-    @IBAction func singInWithTwitter(_ sender: Any) {
-        AuthManager.signIn(with: .twitter) { [unowned self] result in
 
             switch result {
             case .success:
