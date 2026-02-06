@@ -8,14 +8,11 @@
 import FirebaseAuth
 
 private enum AuthError: LocalizedError {
-    case invalidPassword
     case unknown
     case signOutFailed(underlying: Error)
 
     var errorDescription: String? {
         switch self {
-        case .invalidPassword:
-            return "The password can't be less than 6 characters or empty"
         case .unknown:
             return "Unknown error"
         case .signOutFailed:
@@ -24,43 +21,53 @@ private enum AuthError: LocalizedError {
     }
 }
 
-enum AuthProvider {
-    case google
-    case facebook
-    case twitter
-    case apple
-}
-
-class AuthManager {
+final class AuthManager {
     private static let firebaseAuth = Auth.auth()
 
     static func signUp(
+        firtsName: String?,
+        lastName: String?,
         email: String?,
         password: String?,
+        repeatPassword: String?,
+        birthday: Date,
+        gender: Gender,
         completion: @escaping (Result<User, Error>) -> Void
     ) {
-        guard let email, let password else {
+
+        let validationResult = AuthValidator.validateSignUp(
+            firstName: firtsName,
+            lastName: lastName,
+            email: email,
+            password: password,
+            repeatPassword: repeatPassword,
+            birthday: birthday
+        )
+
+        guard case .success = validationResult else {
+            if case .failure(let error) = validationResult {
+                completion(.failure(error))
+            }
+
             return
         }
 
-        if !validatePassword(password: password) {
-            completion(.failure(AuthError.invalidPassword))
-            return
-        }
-
-        firebaseAuth.createUser(withEmail: email, password: password) {
+        firebaseAuth.createUser(withEmail: email!, password: password!) {
             result,
             error in
 
-            if let error = error {
+            if let error {
                 completion(.failure(error))
-            } else if let user = result?.user {
-                completion(.success(user))
-            } else {
-                completion(.failure(AuthError.unknown))
+                return
             }
-        }
 
+            guard let user = result?.user else {
+                completion(.failure(AuthError.unknown))
+                return
+            }
+
+            completion(.success(user))
+        }
     }
 
     static func signIn(
@@ -68,26 +75,35 @@ class AuthManager {
         password: String?,
         completion: @escaping (Result<User, Error>) -> Void
     ) {
-        guard let email, let password else {
+
+        let validationResult = AuthValidator.validateSignIn(
+            email: email,
+            password: password
+        )
+
+        guard case .success = validationResult else {
+            if case .failure(let error) = validationResult {
+                completion(.failure(error))
+            }
+
             return
         }
 
-        if !validatePassword(password: password) {
-            completion(.failure(AuthError.invalidPassword))
-            return
-        }
-
-        firebaseAuth.signIn(withEmail: email, password: password) {
+        firebaseAuth.signIn(withEmail: email!, password: password!) {
             result,
             error in
 
-            if let error = error {
+            if let error {
                 completion(.failure(error))
-            } else if let user = result?.user {
-                completion(.success(user))
-            } else {
-                completion(.failure(AuthError.unknown))
+                return
             }
+
+            guard let user = result?.user else {
+                completion(.failure(AuthError.unknown))
+                return
+            }
+
+            completion(.success(user))
         }
     }
 
@@ -110,23 +126,42 @@ class AuthManager {
         case .google:
             do {
                 print("Singing in with Google...")
+            } catch let error as NSError {
+                print("Error signing in with Google: \(error)")
+                completion(.failure(error))
             }
         case .twitter:
             do {
                 print("Singing in with Twitter...")
+            } catch let error as NSError {
+                print("Error signing in with Twitter: \(error)")
+                completion(.failure(error))
             }
         case .apple:
             do {
                 print("Singing in with Apple...")
+            } catch let error as NSError {
+                print("Error signing in with Apple: \(error)")
+                completion(.failure(error))
             }
         case .facebook:
             do {
                 print("Singing in with Facebook...")
+            } catch let error as NSError {
+                print("Error signing in with Facebook: \(error)")
+                completion(.failure(error))
             }
         }
     }
 
     private static func validatePassword(password: String) -> Bool {
         return !password.isEmpty && password.count >= 6
+    }
+
+    private static func validateRepeatPassword(
+        password: String,
+        repeatPassword: String
+    ) -> Bool {
+        return password == repeatPassword
     }
 }

@@ -43,6 +43,7 @@ class SignInViewController: UIViewController {
                 performSegue(withIdentifier: "navigateToHome", sender: nil)
 
             case .failure(let error):
+                print("Error sing in: \(error.localizedDescription)")
             }
         }
     }
@@ -56,6 +57,7 @@ class SignInViewController: UIViewController {
                 performSegue(withIdentifier: "navigateToHome", sender: nil)
 
             case .failure(let error):
+                print("Error sing in: \(error.localizedDescription)")
             }
         }
     }
@@ -69,6 +71,7 @@ class SignInViewController: UIViewController {
                 performSegue(withIdentifier: "navigateToHome", sender: nil)
 
             case .failure(let error):
+                print("Error sing in: \(error.localizedDescription)")
             }
         }
     }
@@ -82,6 +85,7 @@ class SignInViewController: UIViewController {
                 performSegue(withIdentifier: "navigateToHome", sender: nil)
 
             case .failure(let error):
+                print("Error sing in: \(error.localizedDescription)")
             }
         }
     }
