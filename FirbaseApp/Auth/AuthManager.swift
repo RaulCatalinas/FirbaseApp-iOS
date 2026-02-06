@@ -7,10 +7,27 @@
 
 import FirebaseAuth
 
-class AuthManager {
-    private static let firbaseAuth = Auth.auth()
+private enum AuthError: LocalizedError {
+    case invalidPassword
+    case unknown
+    case signOutFailed(underlying: Error)
 
-    static func singUp(
+    var errorDescription: String? {
+        switch self {
+        case .invalidPassword:
+            return "The password can't be less than 6 characters or empty"
+        case .unknown:
+            return "Unknown error"
+        case .signOutFailed:
+            return "Failed to sign out"
+        }
+    }
+}
+
+class AuthManager {
+    private static let firebaseAuth = Auth.auth()
+
+    static func signUp(
         email: String?,
         password: String?,
         completion: @escaping (Result<User, Error>) -> Void
@@ -19,7 +36,12 @@ class AuthManager {
             return
         }
 
-        firbaseAuth.signIn(withEmail: email, password: password) {
+        if !validatePassword(password: password) {
+            completion(.failure(AuthError.invalidPassword))
+            return
+        }
+
+        firebaseAuth.createUser(withEmail: email, password: password) {
             result,
             error in
 
@@ -27,6 +49,8 @@ class AuthManager {
                 completion(.failure(error))
             } else if let user = result?.user {
                 completion(.success(user))
+            } else {
+                completion(.failure(AuthError.unknown))
             }
         }
 
@@ -41,7 +65,12 @@ class AuthManager {
             return
         }
 
-        firbaseAuth.signIn(withEmail: email, password: password) {
+        if !validatePassword(password: password) {
+            completion(.failure(AuthError.invalidPassword))
+            return
+        }
+
+        firebaseAuth.signIn(withEmail: email, password: password) {
             result,
             error in
 
@@ -49,17 +78,24 @@ class AuthManager {
                 completion(.failure(error))
             } else if let user = result?.user {
                 completion(.success(user))
+            } else {
+                completion(.failure(AuthError.unknown))
             }
         }
     }
 
-    static func singOut(completion: @escaping (Result<Void, Error>) -> Void) {
+    static func signOut(completion: @escaping (Result<Void, Error>) -> Void) {
         do {
-            try firbaseAuth.signOut()
+            try firebaseAuth.signOut()
             completion(.success(Void()))
-        } catch let error as NSError {
+        } catch {
+            let error = error
             print("Error signing out: \(error)")
-            completion(.failure(error))
+            completion(.failure(AuthError.signOutFailed(underlying: error)))
         }
+    }
+
+    private static func validatePassword(password: String) -> Bool {
+        return !password.isEmpty && password.count >= 6
     }
 }
