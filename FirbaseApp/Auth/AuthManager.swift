@@ -44,11 +44,8 @@ final class AuthManager {
             birthday: birthday
         )
 
-        guard case .success = validationResult else {
-            if case .failure(let error) = validationResult {
-                completion(.failure(error))
-            }
-
+        if case .failure(let error) = validationResult {
+            completion(.failure(error))
             return
         }
 
@@ -81,11 +78,8 @@ final class AuthManager {
             password: password
         )
 
-        guard case .success = validationResult else {
-            if case .failure(let error) = validationResult {
-                completion(.failure(error))
-            }
-
+        if case .failure(let error) = validationResult {
+            completion(.failure(error))
             return
         }
 
@@ -153,6 +147,8 @@ final class AuthManager {
             }
         }
     }
+
+    // MARK: Private helpers
 
     private static func validatePassword(password: String) -> Bool {
         return !password.isEmpty && password.count >= 6
