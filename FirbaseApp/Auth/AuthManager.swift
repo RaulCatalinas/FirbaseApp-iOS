@@ -106,7 +106,7 @@ final class AuthManager {
     static func signOut(completion: @escaping (Result<Void, Error>) -> Void) {
         do {
             try firebaseAuth.signOut()
-            completion(.success(Void()))
+            completion(.success(()))
         } catch {
             let error = error
             print("Error signing out: \(error)")
