@@ -12,12 +12,10 @@
 		B27819632F351D3300F099D2 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = B27819622F351D3300F099D2 /* FirebaseFirestore */; };
 		B2837F382F366DA600CC76BE /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = B2837F372F366DA600CC76BE /* GoogleSignIn */; };
 		B2837F3A2F366DA600CC76BE /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = B2837F392F366DA600CC76BE /* GoogleSignInSwift */; };
-		B2AB0C462F3A3F96005A53DF /* HomeScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2AB0C442F3A3F96005A53DF /* HomeScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		B27819332F3518B600F099D2 /* FirbaseApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FirbaseApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		B2AB0C452F3A3F96005A53DF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = FirbaseApp/Views/Base.lproj/HomeScreen.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -60,7 +58,6 @@
 		B278192A2F3518B600F099D2 = {
 			isa = PBXGroup;
 			children = (
-				B2AB0C442F3A3F96005A53DF /* HomeScreen.storyboard */,
 				B27819352F3518B600F099D2 /* FirbaseApp */,
 				B27819342F3518B600F099D2 /* Products */,
 			);
@@ -147,7 +144,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B2AB0C462F3A3F96005A53DF /* HomeScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -162,17 +158,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		B2AB0C442F3A3F96005A53DF /* HomeScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				B2AB0C452F3A3F96005A53DF /* Base */,
-			);
-			name = HomeScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		B27819472F3518B700F099D2 /* Debug */ = {
