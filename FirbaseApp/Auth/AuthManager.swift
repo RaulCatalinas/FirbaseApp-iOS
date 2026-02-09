@@ -7,6 +7,7 @@
 
 import FirebaseAuth
 import FirebaseCore
+import FirebaseFirestore
 import GoogleSignIn
 
 private enum AuthError: LocalizedError {
@@ -34,7 +35,7 @@ final class AuthManager {
         repeatPassword: String?,
         birthday: Date,
         gender: Gender,
-        completion: @escaping (Result<User, Error>) -> Void
+        completion: @escaping (Result<UserEntity, Error>) -> Void
     ) {
 
         let validationResult = AuthValidator.validateSignUp(
@@ -61,12 +62,33 @@ final class AuthManager {
                 return
             }
 
-            guard let user = result?.user else {
+            guard let firbaseUser = result?.user else {
                 completion(.failure(AuthError.unknown))
                 return
             }
 
-            completion(.success(user))
+            let user = UserEntity(
+                id: firbaseUser.uid,
+                email: email!,
+                firstName: firtsName!,
+                lastName: lastName!,
+                photoURL: nil,
+                gender: gender,
+                birthday: Int64(
+                    (birthday.timeIntervalSince1970 * 1000.0).rounded()
+                ),
+                age: nil
+            )
+
+            Task {
+                if await !Db.shared.existUser(withId: firbaseUser.uid) {
+                    Db.shared.saveUser(user)
+                }
+
+                DispatchQueue.main.async {
+                    completion(.success(user))
+                }
+            }
         }
     }
 

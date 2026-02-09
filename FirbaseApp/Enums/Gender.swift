@@ -5,7 +5,7 @@
 //  Created by Tardes on 6/2/26.
 //
 
-enum Gender {
+enum Gender: Codable {
     case male
     case female
 }

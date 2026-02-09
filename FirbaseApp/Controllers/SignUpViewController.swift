@@ -5,6 +5,7 @@
 //  Created by Tardes on 6/2/26.
 //
 
+import FirebaseFirestore
 import UIKit
 
 class SignUpViewController: UIViewController {
@@ -46,5 +47,4 @@ class SignUpViewController: UIViewController {
             }
         }
     }
-
 }
