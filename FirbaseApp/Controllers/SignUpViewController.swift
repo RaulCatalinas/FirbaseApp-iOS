@@ -39,7 +39,7 @@ class SignUpViewController: UIViewController {
             switch result {
             case .success(_):
                 print("Account created successfully!")
-                performSegue(withIdentifier: "navigateToHome", sender: nil)
+                AppNavigator.showHome()
 
             case .failure(let error):
                 print("Error creating account: \(error.localizedDescription)")

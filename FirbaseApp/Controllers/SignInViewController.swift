@@ -16,7 +16,7 @@ class SignInViewController: UIViewController {
         super.viewDidLoad()
 
         if AuthManager.isUserLoggedIn() {
-            performSegue(withIdentifier: "navigateToHome", sender: nil)
+            AppNavigator.showHome()
         }
     }
 

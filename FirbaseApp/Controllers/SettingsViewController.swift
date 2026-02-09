@@ -17,9 +17,7 @@ class SettingsViewController: UIViewController {
 
     @IBAction func signOut(_ sender: Any) {
         defer {
-            navigationController?.navigationController?.popToRootViewController(
-                animated: true
-            )
+            AppNavigator.showAuth()
         }
 
         AuthManager.signOut {
