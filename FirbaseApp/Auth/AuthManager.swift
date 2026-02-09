@@ -48,6 +48,7 @@ final class AuthManager {
 
         if case .failure(let error) = validationResult {
             completion(.failure(error))
+
             return
         }
 
@@ -134,6 +135,7 @@ final class AuthManager {
             GIDSignIn.sharedInstance.signIn(withPresenting: viewController) {
                 result,
                 error in
+
                 if let error = error {
                     print("Error signing in with Google: \(error)")
                     completion(.failure(error))
@@ -182,18 +184,5 @@ final class AuthManager {
 
     static func isUserLoggedIn() -> Bool {
         return firebaseAuth.currentUser != nil
-    }
-
-    // MARK: Private helpers
-
-    private static func validatePassword(password: String) -> Bool {
-        return !password.isEmpty && password.count >= 6
-    }
-
-    private static func validateRepeatPassword(
-        password: String,
-        repeatPassword: String
-    ) -> Bool {
-        return password == repeatPassword
     }
 }
