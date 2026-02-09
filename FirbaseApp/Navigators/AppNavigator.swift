@@ -3,12 +3,9 @@ import UIKit
 final class AppNavigator {
 
     static func showHome() {
-        let storyboard = Storyboard.home.instance
-
         guard
-            let homeVC = storyboard.instantiateViewController(
-                withIdentifier: StoryboardID.mainViewController.rawValue
-            ) as? MainViewController
+            let homeVC = Storyboard.home.instance
+                .instantiateInitialViewController()
         else {
             assertionFailure(
                 "MainViewController misconfigured in HomeScreen.storyboard"

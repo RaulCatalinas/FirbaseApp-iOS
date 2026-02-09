@@ -71,7 +71,7 @@
         <!--Main View Controller-->
         <scene sceneID="9TH-e8-ql6">
             <objects>
-                <tabBarController storyboardIdentifier="MainViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="tMD-y3-f8e" customClass="MainViewController" customModule="FirbaseApp" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController id="tMD-y3-f8e" customClass="MainViewController" customModule="FirbaseApp" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="He1-R6-LYe">
                         <nil key="title"/>
                     </navigationItem>
