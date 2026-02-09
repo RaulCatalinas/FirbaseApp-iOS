@@ -132,7 +132,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1065" y="131"/>
+            <point key="canvasLocation" x="601" y="131"/>
         </scene>
         <!--Sign Up View Controller-->
         <scene sceneID="HnV-AX-o7J">
@@ -246,11 +246,12 @@
                         <outlet property="passwordInput" destination="lJK-T6-Bk0" id="xxk-38-dVA"/>
                         <outlet property="repeatPasswordInput" destination="LxM-zW-PBE" id="Goc-v0-SPe"/>
                         <outlet property="userNameInput" destination="WQf-xO-HBk" id="tkz-9f-phT"/>
+                        <segue destination="tMD-y3-f8e" kind="show" id="IjV-US-fLx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZHR-IK-GM2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2009.9236641221373" y="130.98591549295776"/>
+            <point key="canvasLocation" x="1605" y="131"/>
         </scene>
         <!--Settings-->
         <scene sceneID="Diz-Yi-IaM">
@@ -332,7 +333,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2UM-v9-ePy" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1065" y="877"/>
+            <point key="canvasLocation" x="1065" y="865"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="kNm-Qh-n2F">
@@ -350,7 +351,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Pdl-gq-07X" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="138.1679389312977" y="130.98591549295776"/>
+            <point key="canvasLocation" x="601" y="-706"/>
         </scene>
         <!--Settinngs-->
         <scene sceneID="NJU-XH-flZ">
@@ -410,6 +411,9 @@
             <point key="canvasLocation" x="2065" y="1606"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="KRr-wt-KzZ"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="gear" catalog="system" width="128" height="122"/>
         <image name="plus.app.fill" catalog="system" width="128" height="114"/>

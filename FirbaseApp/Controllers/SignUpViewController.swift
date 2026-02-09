@@ -37,7 +37,7 @@ class SignUpViewController: UIViewController {
         ) { [unowned self] result in
 
             switch result {
-            case .success(let user):
+            case .success(_):
                 print("Account created successfully!")
                 performSegue(withIdentifier: "navigateToHome", sender: nil)
 
