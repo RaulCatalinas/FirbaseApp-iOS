@@ -145,66 +145,93 @@ final class AuthManager {
         switch provider {
         case .google:
             guard let viewController else { return }
-            guard let clientID = FirebaseApp.app()?.options.clientID else {
-                return
-            }
 
-            // Create Google Sign In configuration object.
-            let config = GIDConfiguration(clientID: clientID)
-            GIDSignIn.sharedInstance.configuration = config
+            signInWithGoogle(
+                viewController: viewController,
+                completion: completion
+            )
 
-            // Start the sign in flow!
-            GIDSignIn.sharedInstance.signIn(withPresenting: viewController) {
-                result,
-                error in
-
-                if let error = error {
-                    print("Error signing in with Google: \(error)")
-                    completion(.failure(error))
-                    return
-                }
-
-                guard let user = result?.user,
-                    let idToken = user.idToken?.tokenString
-                else { return }
-
-                let credential = GoogleAuthProvider.credential(
-                    withIDToken: idToken,
-                    accessToken: user.accessToken.tokenString
-                )
-
-                firebaseAuth.signIn(with: credential) { result, error in
-                    if let error {
-                        completion(.failure(error))
-                        return
-                    }
-
-                    guard let firebaseUser = result?.user else {
-                        completion(.failure(AuthError.unknown))
-                        return
-                    }
-
-                    completion(.success(firebaseUser))
-                }
-            }
         case .apple:
-            do {
-                print("Singing in with Apple...")
-            } catch let error as NSError {
-                print("Error signing in with Apple: \(error)")
-                completion(.failure(error))
-            }
+            signInWithApple(completion: completion)
+
         case .facebook:
-            do {
-                print("Singing in with Facebook...")
-            } catch let error as NSError {
-                print("Error signing in with Facebook: \(error)")
-                completion(.failure(error))
-            }
+            signInWithFacebook(completion: completion)
         }
     }
 
     static func isUserLoggedIn() -> Bool {
         return firebaseAuth.currentUser != nil
+    }
+
+    // MARK: - Private helpers
+
+    private static func signInWithGoogle(
+        viewController vc: UIViewController,
+        completion: @escaping (Result<User, Error>) -> Void
+    ) {
+        guard let clientID = FirebaseApp.app()?.options.clientID else {
+            return
+        }
+
+        // Create Google Sign In configuration object.
+        let config = GIDConfiguration(clientID: clientID)
+        GIDSignIn.sharedInstance.configuration = config
+
+        // Start the sign in flow!
+        GIDSignIn.sharedInstance.signIn(withPresenting: vc) {
+            result,
+            error in
+
+            if let error = error {
+                print("Error signing in with Google: \(error)")
+                completion(.failure(error))
+                return
+            }
+
+            guard let user = result?.user,
+                let idToken = user.idToken?.tokenString
+            else { return }
+
+            let credential = GoogleAuthProvider.credential(
+                withIDToken: idToken,
+                accessToken: user.accessToken.tokenString
+            )
+
+            firebaseAuth.signIn(with: credential) { result, error in
+                if let error {
+                    completion(.failure(error))
+                    return
+                }
+
+                guard let firebaseUser = result?.user else {
+                    completion(.failure(AuthError.unknown))
+                    return
+                }
+
+                completion(.success(firebaseUser))
+            }
+        }
+    }
+
+    private static func signInWithApple(
+        completion: @escaping (Result<User, Error>) -> Void
+    ) {
+        do {
+            print("Singing in with Apple...")
+        } catch let error as NSError {
+            print("Error signing in with Apple: \(error)")
+            completion(.failure(error))
+        }
+    }
+
+    private static func signInWithFacebook(
+        completion: @escaping (Result<User, Error>) -> Void
+    ) {
+        do {
+            print("Singing in with Facebook...")
+        } catch let error as NSError {
+            print("Error signing in with Facebook: \(error)")
+            completion(.failure(error))
+        }
     }
 }
