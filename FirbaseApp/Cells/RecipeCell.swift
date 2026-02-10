@@ -27,7 +27,7 @@ class RecipeCell: UITableViewCell {
 
     func configure(with recipe: Recipe) {
         recipeTitleLabel.text = recipe.name
-        recipeTitleLabel.sizeToFit()
+        //recipeTitleLabel.sizeToFit()
         recipeMealTypeLabel.text = recipe.mealType.joined(separator: ", ")
         recipeDifficultLabel.text = recipe.difficulty.rawValue
         recipeImageView.loadImage(from: recipe.image)

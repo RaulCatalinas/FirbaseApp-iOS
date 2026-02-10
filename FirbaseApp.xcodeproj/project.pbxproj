@@ -12,6 +12,7 @@
 		B27819632F351D3300F099D2 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = B27819622F351D3300F099D2 /* FirebaseFirestore */; };
 		B2837F382F366DA600CC76BE /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = B2837F372F366DA600CC76BE /* GoogleSignIn */; };
 		B2837F3A2F366DA600CC76BE /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = B2837F392F366DA600CC76BE /* GoogleSignInSwift */; };
+		B2A0C0222F3B95D60055BA8F /* UIScrollView_InfiniteScroll in Frameworks */ = {isa = PBXBuildFile; productRef = B2A0C0212F3B95D60055BA8F /* UIScrollView_InfiniteScroll */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,6 +48,7 @@
 				B2837F3A2F366DA600CC76BE /* GoogleSignInSwift in Frameworks */,
 				B278195F2F351D3300F099D2 /* FirebaseAnalytics in Frameworks */,
 				B2837F382F366DA600CC76BE /* GoogleSignIn in Frameworks */,
+				B2A0C0222F3B95D60055BA8F /* UIScrollView_InfiniteScroll in Frameworks */,
 				B27819612F351D3300F099D2 /* FirebaseAuth in Frameworks */,
 				B27819632F351D3300F099D2 /* FirebaseFirestore in Frameworks */,
 			);
@@ -96,6 +98,7 @@
 				B27819622F351D3300F099D2 /* FirebaseFirestore */,
 				B2837F372F366DA600CC76BE /* GoogleSignIn */,
 				B2837F392F366DA600CC76BE /* GoogleSignInSwift */,
+				B2A0C0212F3B95D60055BA8F /* UIScrollView_InfiniteScroll */,
 			);
 			productName = FirbaseApp;
 			productReference = B27819332F3518B600F099D2 /* FirbaseApp.app */;
@@ -128,6 +131,7 @@
 			packageReferences = (
 				B278195D2F351D3300F099D2 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				B2837F362F366DA600CC76BE /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
+				B2A0C0202F3B95D60055BA8F /* XCRemoteSwiftPackageReference "UIScrollView-InfiniteScroll" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = B27819342F3518B600F099D2 /* Products */;
@@ -381,6 +385,14 @@
 				minimumVersion = 9.1.0;
 			};
 		};
+		B2A0C0202F3B95D60055BA8F /* XCRemoteSwiftPackageReference "UIScrollView-InfiniteScroll" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pronebird/UIScrollView-InfiniteScroll";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.3.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -408,6 +420,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = B2837F362F366DA600CC76BE /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
 			productName = GoogleSignInSwift;
+		};
+		B2A0C0212F3B95D60055BA8F /* UIScrollView_InfiniteScroll */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B2A0C0202F3B95D60055BA8F /* XCRemoteSwiftPackageReference "UIScrollView-InfiniteScroll" */;
+			productName = UIScrollView_InfiniteScroll;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
