@@ -15,7 +15,6 @@ final class Db {
 
     func saveUser(_ user: UserEntity) {
         do {
-
             try db.collection("Users").document(user.id).setData(from: user)
         } catch {
             print("Error saving user: \(error)")
