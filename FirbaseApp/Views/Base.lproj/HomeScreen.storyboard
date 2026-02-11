@@ -164,7 +164,7 @@
                                         <sections/>
                                     </tableView>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GCp-2Q-KDS">
-                                        <rect key="frame" x="222" y="227" width="93" height="35"/>
+                                        <rect key="frame" x="54" y="227" width="93" height="35"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="filled" title="Add step"/>
@@ -173,12 +173,21 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Ld-Mr-xQB">
-                                        <rect key="frame" x="78" y="227" width="136" height="35"/>
+                                        <rect key="frame" x="32" y="178" width="136" height="35"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="filled" title="Add ingredient"/>
                                         <connections>
                                             <action selector="addElementTapped:" destination="SZ7-KN-AzJ" eventType="touchUpInside" id="RKX-94-CA3"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6TF-Re-ERn">
+                                        <rect key="frame" x="234" y="227" width="113" height="35"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="filled" title="Save recipe"/>
+                                        <connections>
+                                            <action selector="saveRecipeTapped:" destination="SZ7-KN-AzJ" eventType="touchUpInside" id="zx7-HR-1tQ"/>
                                         </connections>
                                     </button>
                                 </subviews>
