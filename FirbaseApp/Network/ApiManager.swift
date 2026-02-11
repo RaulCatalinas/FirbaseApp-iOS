@@ -42,5 +42,31 @@ final class ApiManager {
             return nil
         }
     }
-}
 
+    static func addRecipe(_ recipe: Recipe) async -> Recipe? {
+        do {
+            guard let url = URL(string: "\(BASE_API_URL)/add") else {
+                return nil
+            }
+
+            var urlRequest = URLRequest(url: url)
+
+            urlRequest.httpMethod = "POST"
+            urlRequest.setValue(
+                "application/json",
+                forHTTPHeaderField: "Content-Type"
+            )
+            urlRequest.httpBody = try? JSONEncoder().encode(recipe)
+
+            let (res, _) = try await URLSession.shared.data(
+                from: url
+            )
+
+            return try JSONDecoder().decode(Recipe.self, from: res)
+        } catch {
+            print("Error creating recipe: \(error)")
+
+            return nil
+        }
+    }
+}
