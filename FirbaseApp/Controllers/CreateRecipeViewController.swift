@@ -7,16 +7,22 @@ import UIKit
 
 class CreateRecipeViewController: UIViewController,
     UIPickerViewDelegate,
-    UIPickerViewDataSource, UIImagePickerControllerDelegate,
-    UINavigationControllerDelegate
+    UIPickerViewDataSource,
+    UIImagePickerControllerDelegate,
+    UINavigationControllerDelegate,
+    UITableViewDelegate,
+    UITableViewDataSource
 {
     @IBOutlet weak var difficultPickerView: UIPickerView!
     @IBOutlet weak var recipeImageView: UIImageView!
     @IBOutlet weak var recipeNameTextField: UITextField!
     @IBOutlet weak var recipeIngredientTextField: UITextField!
     @IBOutlet weak var loadImageBtn: UIButton!
+    @IBOutlet weak var tableView: UITableView!
 
     private let difficulties: [Difficulty] = [.easy, .medium, .hard]
+    private var ingredients: [String] = []
+    private var steps: [String] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +30,10 @@ class CreateRecipeViewController: UIViewController,
         // Configure picker views
         difficultPickerView.delegate = self
         difficultPickerView.dataSource = self
+
+        // Configure Table view
+        tableView.delegate = self
+        tableView.dataSource = self
     }
 
     // MARK: - Picker Views
@@ -74,4 +84,70 @@ class CreateRecipeViewController: UIViewController,
 
         dismiss(animated: true)
     }
+
+    // MARK: - Table view
+
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
+
+    func tableView(
+        _ tableView: UITableView,
+        numberOfRowsInSection section: Int
+    ) -> Int {
+
+        if section == 0 {
+            return ingredients.count
+        } else {
+            return steps.count
+        }
+    }
+
+    func tableView(
+        _ tableView: UITableView,
+        cellForRowAt indexPath: IndexPath
+    ) -> UITableViewCell {
+
+        let cell = tableView.dequeueReusableCell(
+            withIdentifier: "cell",
+            for: indexPath
+        )
+
+        if indexPath.section == 0 {
+            cell.textLabel?.text = "• \(ingredients[indexPath.row])"
+        } else {
+            cell.textLabel?.text =
+                "\(indexPath.row + 1). \(steps[indexPath.row])"
+        }
+
+        return cell
+    }
+
+    func tableView(
+        _ tableView: UITableView,
+        titleForHeaderInSection section: Int
+    ) -> String? {
+        return section == 0 ? "Ingredients" : "Steps"
+    }
+
+    @IBAction func addElementTapped(_ sender: UIButton) {
+        let isbtnAddIngredient = sender.titleLabel?.text == "Add ingredient"
+
+        self.showAlert(
+            title: isbtnAddIngredient ? "Add ingredient" : "Add Step",
+            placeholder:
+                isbtnAddIngredient
+                ? "e.g., 2 tomatoes"
+                : "e.g., Chop the onions"
+        ) { [self] text in
+
+            guard !text.trimmingCharacters(in: .whitespaces).isEmpty else {
+                return
+            }
+
+            isbtnAddIngredient ? ingredients.append(text) : steps.append(text)
+            tableView.reloadData()
+        }
+    }
+
 }
