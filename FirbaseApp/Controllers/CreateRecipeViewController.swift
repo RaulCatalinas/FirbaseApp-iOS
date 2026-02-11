@@ -15,6 +15,7 @@ class CreateRecipeViewController: UIViewController,
     @IBOutlet weak var recipeNameTextField: UITextField!
     @IBOutlet weak var recipeIngredientTextField: UITextField!
     @IBOutlet weak var loadImageBtn: UIButton!
+
     private let difficulties: [String] = ["Easy", "Medium", "Hard"]
 
     override func viewDidLoad() {
