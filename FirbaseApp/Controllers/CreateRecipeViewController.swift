@@ -21,6 +21,7 @@ class CreateRecipeViewController: UIViewController,
     private let difficulties: [Difficulty] = [.easy, .medium, .hard]
     private var ingredients: [String] = []
     private var steps: [String] = []
+    private var imageData: Data? = nil
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -78,7 +79,7 @@ class CreateRecipeViewController: UIViewController,
 
         recipeImageView.image = image
 
-        let data = image.jpegData(compressionQuality: 0.8)
+        imageData = image.jpegData(compressionQuality: 0.8)
 
         dismiss(animated: true)
     }
@@ -148,4 +149,37 @@ class CreateRecipeViewController: UIViewController,
         }
     }
 
+    @IBAction func saveRecipeTapped(_ sender: Any) {
+
+        guard let recipeName = recipeNameTextField.text,
+            !recipeName.isEmpty
+        else {
+            self.showAlert(
+                title: "No recipe name",
+                message: "Recipe name required"
+            )
+
+            return
+        }
+
+        guard ingredients.count > 0 else {
+            self.showAlert(
+                title: "No ingredients added",
+                message: "Add at least one ingredient"
+            )
+
+            return
+        }
+
+        guard steps.count > 0 else {
+            self.showAlert(
+                title: "No steps added",
+                message: "Add at least one step"
+            )
+
+            return
+        }
+
+        print("Saving recipe: \(recipeName)...")
+    }
 }
