@@ -16,8 +16,6 @@ class CreateRecipeViewController: UIViewController,
     @IBOutlet weak var difficultPickerView: UIPickerView!
     @IBOutlet weak var recipeImageView: UIImageView!
     @IBOutlet weak var recipeNameTextField: UITextField!
-    @IBOutlet weak var recipeIngredientTextField: UITextField!
-    @IBOutlet weak var loadImageBtn: UIButton!
     @IBOutlet weak var tableView: UITableView!
 
     private let difficulties: [Difficulty] = [.easy, .medium, .hard]

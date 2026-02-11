@@ -198,6 +198,7 @@
                     <connections>
                         <outlet property="difficultPickerView" destination="NBr-H6-spq" id="DbO-vf-VLf"/>
                         <outlet property="recipeImageView" destination="rdU-PN-Id0" id="eiV-KN-8tW"/>
+                        <outlet property="recipeNameTextField" destination="Xf3-S9-p1F" id="Xp4-yg-fIl"/>
                         <outlet property="tableView" destination="GLo-H5-juV" id="2LR-hA-yRT"/>
                     </connections>
                 </viewController>
