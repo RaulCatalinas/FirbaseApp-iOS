@@ -16,7 +16,7 @@ class CreateRecipeViewController: UIViewController,
     @IBOutlet weak var recipeIngredientTextField: UITextField!
     @IBOutlet weak var loadImageBtn: UIButton!
 
-    private let difficulties: [String] = ["Easy", "Medium", "Hard"]
+    private let difficulties: [Difficulty] = [.easy, .medium, .hard]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,7 +46,7 @@ class CreateRecipeViewController: UIViewController,
         forComponent component: Int
     ) -> String? {
 
-        return difficulties[row]
+        return difficulties[row].rawValue
     }
 
     // MARK: - Load Image Button

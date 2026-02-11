@@ -39,4 +39,5 @@ struct Recipe: Codable {
 enum Difficulty: String, Codable {
     case easy = "Easy"
     case medium = "Medium"
+    case hard = "Hard"
 }
