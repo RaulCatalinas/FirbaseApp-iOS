@@ -7,7 +7,8 @@ import UIKit
 
 class CreateRecipeViewController: UIViewController,
     UIPickerViewDelegate,
-    UIPickerViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate
+    UIPickerViewDataSource, UIImagePickerControllerDelegate,
+    UINavigationControllerDelegate
 {
     @IBOutlet weak var difficultPickerView: UIPickerView!
     @IBOutlet weak var recipeImageView: UIImageView!
@@ -50,53 +51,26 @@ class CreateRecipeViewController: UIViewController,
     // MARK: - Load Image Button
 
     @IBAction func loadImageTapped(_ sender: UIButton) {
-
         let picker = UIImagePickerController()
+
         picker.allowsEditing = true
         picker.delegate = self
         present(picker, animated: true)
-        
-        /*var config = PHPickerConfiguration()
-        config.filter = .images
-        config.selectionLimit = 1
-
-        let picker = PHPickerViewController(configuration: config)
-        picker.delegate = self
-
-        present(picker, animated: true)*/
     }
-    
+
     // MARK: - ImagePicker Delegate
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+
+    func imagePickerController(
+        _ picker: UIImagePickerController,
+        didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey:
+            Any]
+    ) {
         guard let image = info[.editedImage] as? UIImage else { return }
-        
+
         recipeImageView.image = image
-        
+
         let data = image.jpegData(compressionQuality: 0.8)
 
         dismiss(animated: true)
     }
-
-    // MARK: - PHPicker Delegate
-
-    /*func picker(
-        _ picker: PHPickerViewController,
-        didFinishPicking results: [PHPickerResult]
-    ) {
-
-        dismiss(animated: true)
-
-        guard let itemProvider = results.first?.itemProvider,
-            itemProvider.canLoadObject(ofClass: UIImage.self)
-        else { return }
-
-        itemProvider.loadObject(ofClass: UIImage.self) { image, error in
-            DispatchQueue.main.async {
-                if let selectedImage = image as? UIImage {
-                    self.recipeImageView.image = selectedImage
-                }
-            }
-        }
-    }*/
 }
