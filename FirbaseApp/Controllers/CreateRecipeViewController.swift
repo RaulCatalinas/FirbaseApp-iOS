@@ -16,12 +16,15 @@ class CreateRecipeViewController: UIViewController,
     UICollectionViewDataSource
 {
     @IBOutlet weak var difficultPickerView: UIPickerView!
+    @IBOutlet weak var cuisinesPickerView: UIPickerView!
     @IBOutlet weak var recipeImageView: UIImageView!
     @IBOutlet weak var recipeNameTextField: UITextField!
     @IBOutlet weak var recipePrepareTimeTextField: UITextField!
     @IBOutlet weak var recipeCookTimeField: UITextField!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var mealTypeCollectionView: UICollectionView!
+    @IBOutlet weak var recipeServingsStepper: UIStepper!
+    @IBOutlet weak var recipeServingsLabel: UILabel!
 
     private let difficulties: [Difficulty] = [.easy, .medium, .hard]
     private var ingredients: [String] = []
@@ -31,19 +34,27 @@ class CreateRecipeViewController: UIViewController,
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Configure picker views
+        // Configure Picker views
         difficultPickerView.delegate = self
         difficultPickerView.dataSource = self
+
+        cuisinesPickerView.delegate = self
+        cuisinesPickerView.dataSource = self
 
         // Configure Table view
         tableView.delegate = self
         tableView.dataSource = self
 
-        // Configure collection view
+        // Configure Collection view
         mealTypeCollectionView.delegate = self
         mealTypeCollectionView.dataSource = self
         mealTypeCollectionView.allowsMultipleSelection = true
         mealTypeCollectionView.reloadData()
+
+        // Configure Stepper
+        recipeServingsStepper.minimumValue = 1
+        recipeServingsStepper.maximumValue = 20
+
     }
 
     // MARK: - Picker Views
@@ -57,7 +68,11 @@ class CreateRecipeViewController: UIViewController,
         numberOfRowsInComponent component: Int
     ) -> Int {
 
-        return difficulties.count
+        if pickerView == difficultPickerView {
+            return difficulties.count
+        } else {
+            return COUSINES.count
+        }
     }
 
     func pickerView(
@@ -66,7 +81,11 @@ class CreateRecipeViewController: UIViewController,
         forComponent component: Int
     ) -> String? {
 
-        return difficulties[row].rawValue
+        if pickerView == difficultPickerView {
+            return difficulties[row].rawValue
+        } else {
+            return COUSINES[row]
+        }
     }
 
     // MARK: - Load Image Button
@@ -250,8 +269,18 @@ class CreateRecipeViewController: UIViewController,
             MEAL_TYPES[$0.row]
         }
 
+        let selectedDifficultIndex = difficultPickerView.selectedRow(
+            inComponent: 0
+        )
+        let selectedDifficult = difficulties[selectedDifficultIndex].rawValue
+
+        let selectedCuisineIndex = cuisinesPickerView.selectedRow(
+            inComponent: 0
+        )
+        let selectedCuisine = COUSINES[selectedCuisineIndex]
+
         print(
-            "Saving recipe: \(recipeName) and meal type is \(selectedMealTypes.joined(separator: ", "))..."
+            "Saving recipe: \(recipeName), meal type is \(selectedMealTypes.joined(separator: ", ")), cousine is \(selectedCuisine), and the difficult is \(selectedDifficult)..."
         )
     }
 
@@ -277,5 +306,10 @@ class CreateRecipeViewController: UIViewController,
         cell.configure(with: MEAL_TYPES[indexPath.row])
 
         return cell
+    }
+
+    // MARK: - Stepper
+    @IBAction func servingsStepperChanged(_ sender: UIStepper) {
+        recipeServingsLabel.text = "Servings: \(Int(sender.value))"
     }
 }

@@ -14,3 +14,21 @@ let MEAL_TYPES: [String] = [
     "Snack",
     "Dessert",
 ]
+
+let COUSINES: [String] = [
+    "American",
+    "Italian",
+    "French",
+    "Mexican",
+    "Indian",
+    "Chinese",
+    "Japanese",
+    "Thai",
+    "Greek",
+    "Spanish",
+    "Caribbean",
+    "Middle Eastern",
+    "Seafood",
+    "African",
+    "Other",
+]
