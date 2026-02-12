@@ -56,10 +56,10 @@ final class ApiManager {
                 "application/json",
                 forHTTPHeaderField: "Content-Type"
             )
-            urlRequest.httpBody = try? JSONEncoder().encode(recipe)
+            urlRequest.httpBody = try JSONEncoder().encode(recipe)
 
             let (res, _) = try await URLSession.shared.data(
-                from: url
+                for: urlRequest
             )
 
             return try JSONDecoder().decode(Recipe.self, from: res)

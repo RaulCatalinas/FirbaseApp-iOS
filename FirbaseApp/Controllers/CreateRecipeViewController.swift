@@ -21,6 +21,7 @@ class CreateRecipeViewController: UIViewController,
     @IBOutlet weak var recipeNameTextField: UITextField!
     @IBOutlet weak var recipePrepareTimeTextField: UITextField!
     @IBOutlet weak var recipeCookTimeField: UITextField!
+    @IBOutlet weak var recipeTotalCaloriesField: UITextField!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var mealTypeCollectionView: UICollectionView!
     @IBOutlet weak var recipeServingsStepper: UIStepper!
@@ -265,6 +266,28 @@ class CreateRecipeViewController: UIViewController,
             return
         }
 
+        guard
+            let totalCaloriesText = recipePrepareTimeTextField.text?
+                .trimmingCharacters(in: .whitespacesAndNewlines),
+            !prepareTimeText.isEmpty
+        else {
+            showAlert(
+                title: "Prepare total calories required",
+                message: "Please enter the total calories"
+            )
+            return
+        }
+
+        guard let totalCalories = Int(totalCaloriesText),
+            totalCalories > 0
+        else {
+            showAlert(
+                title: "Invalid total calories",
+                message: "Please enter a valid number greater than 0"
+            )
+            return
+        }
+
         let selectedMealTypes = selectedIndexPaths.map {
             MEAL_TYPES[$0.row]
         }
@@ -272,16 +295,49 @@ class CreateRecipeViewController: UIViewController,
         let selectedDifficultIndex = difficultPickerView.selectedRow(
             inComponent: 0
         )
-        let selectedDifficult = difficulties[selectedDifficultIndex].rawValue
+        let selectedDifficult = difficulties[selectedDifficultIndex]
 
         let selectedCuisineIndex = cuisinesPickerView.selectedRow(
             inComponent: 0
         )
         let selectedCuisine = COUSINES[selectedCuisineIndex]
 
-        print(
-            "Saving recipe: \(recipeName), meal type is \(selectedMealTypes.joined(separator: ", ")), cousine is \(selectedCuisine), and the difficult is \(selectedDifficult)..."
+        let servings = Int(recipeServingsStepper.value)
+
+        let recipeToCreate = Recipe(
+            id: nil,
+            name: recipeName,
+            ingredients: ingredients,
+            instructions: steps,
+            prepTimeMinutes: prepareTimeInMinutes,
+            cookTimeMinutes: cookTimeInMinutes,
+            servings: servings,
+            difficulty: selectedDifficult,
+            cuisine: selectedCuisine,
+            caloriesPerServing: totalCalories / servings,
+            tags: [],
+            userID: nil,
+            image: nil,
+            rating: nil,
+            reviewCount: nil,
+            mealType: selectedMealTypes
         )
+
+        Task {
+            let createdRecipe = await ApiManager.addRecipe(recipeToCreate)
+
+            await MainActor.run {
+                guard let createdRecipe = createdRecipe else {
+                    self.showAlert(
+                        title: "Failed to create recipe",
+                        message: "Unknown error."
+                    )
+                    return
+                }
+
+                print(createdRecipe)
+            }
+        }
     }
 
     // MARK: - Collection View

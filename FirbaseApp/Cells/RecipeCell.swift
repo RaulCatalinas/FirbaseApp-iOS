@@ -30,7 +30,7 @@ class RecipeCell: UITableViewCell {
         //recipeTitleLabel.sizeToFit()
         recipeMealTypeLabel.text = recipe.mealType.joined(separator: ", ")
         recipeDifficultLabel.text = recipe.difficulty.rawValue
-        recipeImageView.loadImage(from: recipe.image)
+        recipeImageView.loadImage(from: recipe.image ?? "")
         recipeTagsLabel.text = recipe.tags.joined(separator: ", ")
     }
 

@@ -13,7 +13,7 @@ struct Recipes: Codable {
 
 // MARK: - Recipe
 struct Recipe: Codable {
-    let id: Int
+    let id: Int?
     let name: String
     let ingredients, instructions: [String]
     let prepTimeMinutes, cookTimeMinutes, servings: Int
@@ -21,10 +21,10 @@ struct Recipe: Codable {
     let cuisine: String
     let caloriesPerServing: Int
     let tags: [String]
-    let userID: Int
-    let image: String
-    let rating: Double
-    let reviewCount: Int
+    let userID: Int?
+    let image: String?
+    let rating: Double?
+    let reviewCount: Int?
     let mealType: [String]
 
     enum CodingKeys: String, CodingKey {
