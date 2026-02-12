@@ -230,6 +230,18 @@
                                             </collectionViewCell>
                                         </cells>
                                     </collectionView>
+                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Cook time (in minutes)" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pxu-qQ-x9F">
+                                        <rect key="frame" x="234" y="282" width="171" height="34"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numberPad" textContentType="one-time-code"/>
+                                    </textField>
+                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Prepare time (in minutes)" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nGd-Uc-HUy">
+                                        <rect key="frame" x="234" y="335" width="171" height="34"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numberPad" textContentType="one-time-code"/>
+                                    </textField>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
@@ -247,8 +259,10 @@
                     <connections>
                         <outlet property="difficultPickerView" destination="NBr-H6-spq" id="DbO-vf-VLf"/>
                         <outlet property="mealTypeCollectionView" destination="kID-s2-a4h" id="2KM-cX-Wia"/>
+                        <outlet property="recipeCookTimeField" destination="pxu-qQ-x9F" id="mAb-Ui-QR3"/>
                         <outlet property="recipeImageView" destination="rdU-PN-Id0" id="eiV-KN-8tW"/>
                         <outlet property="recipeNameTextField" destination="Xf3-S9-p1F" id="Xp4-yg-fIl"/>
+                        <outlet property="recipePrepareTimeTextField" destination="nGd-Uc-HUy" id="o34-Zt-OWn"/>
                         <outlet property="tableView" destination="GLo-H5-juV" id="2LR-hA-yRT"/>
                     </connections>
                 </viewController>

@@ -18,6 +18,8 @@ class CreateRecipeViewController: UIViewController,
     @IBOutlet weak var difficultPickerView: UIPickerView!
     @IBOutlet weak var recipeImageView: UIImageView!
     @IBOutlet weak var recipeNameTextField: UITextField!
+    @IBOutlet weak var recipePrepareTimeTextField: UITextField!
+    @IBOutlet weak var recipeCookTimeField: UITextField!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var mealTypeCollectionView: UICollectionView!
 
@@ -196,6 +198,50 @@ class CreateRecipeViewController: UIViewController,
             self.showAlert(
                 title: "No meal type selected",
                 message: "Select at least one meal type"
+            )
+            return
+        }
+
+        guard
+            let cookTimeText = recipeCookTimeField.text?
+                .trimmingCharacters(in: .whitespacesAndNewlines),
+            !cookTimeText.isEmpty
+        else {
+            showAlert(
+                title: "Cook time required",
+                message: "Please enter the cook time"
+            )
+            return
+        }
+
+        guard let cookTimeInMinutes = Int(cookTimeText),
+            cookTimeInMinutes > 0
+        else {
+            showAlert(
+                title: "Invalid cook time",
+                message: "Please enter a valid number greater than 0"
+            )
+            return
+        }
+
+        guard
+            let prepareTimeText = recipePrepareTimeTextField.text?
+                .trimmingCharacters(in: .whitespacesAndNewlines),
+            !prepareTimeText.isEmpty
+        else {
+            showAlert(
+                title: "Prepare time required",
+                message: "Please enter the prepare time"
+            )
+            return
+        }
+
+        guard let prepareTimeInMinutes = Int(prepareTimeText),
+            prepareTimeInMinutes > 0
+        else {
+            showAlert(
+                title: "Invalid prepare time",
+                message: "Please enter a valid number greater than 0"
             )
             return
         }
