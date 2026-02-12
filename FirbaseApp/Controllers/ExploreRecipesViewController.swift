@@ -74,4 +74,16 @@ class ExploreRecipesViewController: UIViewController, UITableViewDataSource {
 
         return cell
     }
+
+    // MARK: - Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let detailsRecipeVC = segue.destination as! DetailsRecipeViewController
+
+        let selectedIndexPath = tableView.indexPathForSelectedRow!
+        let selectedRecipe = recipes[selectedIndexPath.row]
+
+        detailsRecipeVC.configure(with: selectedRecipe)
+
+        tableView.deselectRow(at: selectedIndexPath, animated: false)
+    }
 }
