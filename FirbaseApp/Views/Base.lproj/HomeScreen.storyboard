@@ -5,6 +5,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24063"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -148,7 +149,7 @@
                                         </connections>
                                     </button>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="117" estimatedRowHeight="117" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" springLoaded="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GLo-H5-juV">
-                                        <rect key="frame" x="0.0" y="270.66666666666674" width="393" height="412.33333333333326"/>
+                                        <rect key="frame" x="0.0" y="431" width="393" height="252"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <prototypes>
@@ -190,6 +191,45 @@
                                             <action selector="saveRecipeTapped:" destination="SZ7-KN-AzJ" eventType="touchUpInside" id="zx7-HR-1tQ"/>
                                         </connections>
                                     </button>
+                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="kID-s2-a4h">
+                                        <rect key="frame" x="10" y="282" width="208" height="141"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="bxS-aA-NAN">
+                                            <size key="itemSize" width="90" height="27"/>
+                                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        </collectionViewFlowLayout>
+                                        <cells>
+                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" reuseIdentifier="meal_type_cell" id="XWS-la-eIL" customClass="MealTypeCell" customModule="FirbaseApp" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="90" height="27"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="SPN-Kk-QuL">
+                                                    <rect key="frame" x="0.0" y="0.0" width="90" height="27"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Meal type" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="azd-A7-aJV">
+                                                            <rect key="frame" x="0.0" y="-26" width="88" height="79"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstAttribute="bottom" secondItem="azd-A7-aJV" secondAttribute="bottom" constant="-26" id="4Cv-SR-3Vg"/>
+                                                        <constraint firstItem="azd-A7-aJV" firstAttribute="top" secondItem="SPN-Kk-QuL" secondAttribute="top" constant="-26" id="DAe-hx-sUh"/>
+                                                        <constraint firstItem="azd-A7-aJV" firstAttribute="leading" secondItem="SPN-Kk-QuL" secondAttribute="leading" id="XyL-so-jKt"/>
+                                                        <constraint firstAttribute="trailing" secondItem="azd-A7-aJV" secondAttribute="trailing" constant="2" id="pjq-Ts-2La"/>
+                                                    </constraints>
+                                                </collectionViewCellContentView>
+                                                <size key="customSize" width="90" height="27"/>
+                                                <connections>
+                                                    <outlet property="titleLabel" destination="azd-A7-aJV" id="gZa-p7-rot"/>
+                                                </connections>
+                                            </collectionViewCell>
+                                        </cells>
+                                    </collectionView>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
@@ -206,6 +246,7 @@
                     <navigationItem key="navigationItem" title="Create recipe" id="Mop-uk-zpd"/>
                     <connections>
                         <outlet property="difficultPickerView" destination="NBr-H6-spq" id="DbO-vf-VLf"/>
+                        <outlet property="mealTypeCollectionView" destination="kID-s2-a4h" id="2KM-cX-Wia"/>
                         <outlet property="recipeImageView" destination="rdU-PN-Id0" id="eiV-KN-8tW"/>
                         <outlet property="recipeNameTextField" destination="Xf3-S9-p1F" id="Xp4-yg-fIl"/>
                         <outlet property="tableView" destination="GLo-H5-juV" id="2LR-hA-yRT"/>

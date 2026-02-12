@@ -11,12 +11,15 @@ class CreateRecipeViewController: UIViewController,
     UIImagePickerControllerDelegate,
     UINavigationControllerDelegate,
     UITableViewDelegate,
-    UITableViewDataSource
+    UITableViewDataSource,
+    UICollectionViewDelegate,
+    UICollectionViewDataSource
 {
     @IBOutlet weak var difficultPickerView: UIPickerView!
     @IBOutlet weak var recipeImageView: UIImageView!
     @IBOutlet weak var recipeNameTextField: UITextField!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var mealTypeCollectionView: UICollectionView!
 
     private let difficulties: [Difficulty] = [.easy, .medium, .hard]
     private var ingredients: [String] = []
@@ -33,6 +36,12 @@ class CreateRecipeViewController: UIViewController,
         // Configure Table view
         tableView.delegate = self
         tableView.dataSource = self
+
+        // Configure collection view
+        mealTypeCollectionView.delegate = self
+        mealTypeCollectionView.dataSource = self
+        mealTypeCollectionView.allowsMultipleSelection = true
+        mealTypeCollectionView.reloadData()
     }
 
     // MARK: - Picker Views
@@ -150,7 +159,6 @@ class CreateRecipeViewController: UIViewController,
     }
 
     @IBAction func saveRecipeTapped(_ sender: Any) {
-
         guard let recipeName = recipeNameTextField.text,
             !recipeName.isEmpty
         else {
@@ -180,6 +188,48 @@ class CreateRecipeViewController: UIViewController,
             return
         }
 
-        print("Saving recipe: \(recipeName)...")
+        guard
+            let selectedIndexPaths = mealTypeCollectionView
+                .indexPathsForSelectedItems,
+            !selectedIndexPaths.isEmpty
+        else {
+            self.showAlert(
+                title: "No meal type selected",
+                message: "Select at least one meal type"
+            )
+            return
+        }
+
+        let selectedMealTypes = selectedIndexPaths.map {
+            MEAL_TYPES[$0.row]
+        }
+
+        print(
+            "Saving recipe: \(recipeName) and meal type is \(selectedMealTypes.joined(separator: ", "))..."
+        )
+    }
+
+    // MARK: - Collection View
+    func collectionView(
+        _ collectionView: UICollectionView,
+        numberOfItemsInSection section: Int
+    ) -> Int {
+        return MEAL_TYPES.count
+    }
+
+    func collectionView(
+        _ collectionView: UICollectionView,
+        cellForItemAt indexPath: IndexPath
+    ) -> UICollectionViewCell {
+
+        let cell =
+            collectionView.dequeueReusableCell(
+                withReuseIdentifier: "meal_type_cell",
+                for: indexPath
+            ) as! MealTypeCell
+
+        cell.configure(with: MEAL_TYPES[indexPath.row])
+
+        return cell
     }
 }
